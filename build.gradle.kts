@@ -1,10 +1,8 @@
-@file:OptIn(ExperimentalComposeLibrary::class)
-
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization")
     id("org.jetbrains.compose")
 }
 
@@ -20,28 +18,39 @@ repositories {
 kotlin {
     jvm {
         jvmToolchain(11)
-        withJava()
     }
     sourceSets {
         val jvmMain by getting {
             dependencies {
-                implementation(compose.desktop.currentOs)
-                implementation(compose.material3)
+                // Kotlin Reflect
                 implementation(kotlin("reflect"))
 
-                implementation("com.fasterxml.jackson:jackson:2.13.4")
-                implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4")
+                // Compose
+                implementation(compose.desktop.currentOs)
+                implementation(compose.material3)
 
+                // Kotlinx Serialization
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:${extra["serialization.core.version"]}")
+                implementation("io.github.pdvrieze.xmlutil:serialization-jvm:${extra["serialization.xml.version"]}")
+
+                // Retrofit
                 implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+                implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
 
+                // OkHttp
                 implementation("com.squareup.okhttp3:okhttp:4.10.0")
                 implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
                 implementation("com.squareup.okhttp3:okhttp-tls:4.10.0")
+            }
 
-                languageSettings.optIn("androidx.compose.material3.ExperimentalMaterial3Api")
+            languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
+        }
+        val jvmTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
             }
         }
-        val jvmTest by getting
     }
 }
 
