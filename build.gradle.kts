@@ -31,6 +31,7 @@ kotlin {
 
                 // Kotlinx Serialization
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:${extra["serialization.core.version"]}")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:${extra["serialization.core.version"]}")
                 implementation("io.github.pdvrieze.xmlutil:serialization-jvm:${extra["serialization.xml.version"]}")
 
                 // Retrofit
