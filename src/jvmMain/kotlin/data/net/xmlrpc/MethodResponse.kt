@@ -25,7 +25,7 @@ data class Failure(
 @SerialName("params")
 data class Success(
     @XmlElement(true)
-    val data: Parameter
+    val parameter: Parameter
 ) : MethodResponseType()
 
 fun <R : Any> MethodResponse.fold(
