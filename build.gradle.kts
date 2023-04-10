@@ -45,6 +45,9 @@ kotlin {
                 implementation("com.squareup.okhttp3:okhttp:4.10.0")
                 implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
                 implementation("com.squareup.okhttp3:okhttp-tls:4.10.0")
+
+                // Kotlinx Datetime
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
             }
 
             languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
