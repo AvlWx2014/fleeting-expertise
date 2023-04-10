@@ -27,3 +27,11 @@ data class Success(
     @XmlElement(true)
     val data: Parameter
 ) : MethodResponseType()
+
+fun <R : Any> MethodResponse.fold(
+    onSuccess: (Success) -> R,
+    onFailure: (Failure) -> R
+): R = when (val response = this.value) {
+    is Success -> onSuccess(response)
+    is Failure -> onFailure(response)
+}
