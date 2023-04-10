@@ -35,3 +35,9 @@ fun <R : Any> MethodResponse.fold(
     is Success -> onSuccess(response)
     is Failure -> onFailure(response)
 }
+
+val Success.underlying: ValueType
+    get() = parameter.value.value
+
+val Failure.underlying: ValueType
+    get() = value.value
