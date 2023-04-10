@@ -31,7 +31,7 @@ data class StructType(private val members: List<Member>) : CompositeType {
 
     internal operator fun get(key: String): ValueType {
         require(key in properties) {
-            "No such property named $key"
+            "StructType has no property named $key"
         }
         return properties[key] ?: error("Property $key was mapped to a null value.")
     }
@@ -42,6 +42,7 @@ fun StructType.int(key: String): Int = when (val value = this[key]) {
     else -> error("Expected property $key to be an IntType but was ${value::class.name}")
 }
 
+// TODO: doesn't handle NullType very cleanly (implicitly if non-nullable version throws)
 fun StructType.intOrNull(key: String): Int? = try {
     int(key)
 } catch (ise: IllegalStateException) {
@@ -53,6 +54,7 @@ fun StructType.double(key: String): Double = when (val value = this[key]) {
     else -> error("Expected property $key to be an DoubleType but was ${value::class.name}")
 }
 
+// TODO: doesn't handle NullType very cleanly (implicitly if non-nullable version throws)
 fun StructType.doubleOrNull(key: String): Double? = try {
     double(key)
 } catch (ise: IllegalStateException) {
@@ -64,6 +66,7 @@ fun StructType.string(key: String): String = when (val value = this[key]) {
     else -> error("Expected property $key to be an StringType but was ${value::class.name}")
 }
 
+// TODO: doesn't handle NullType very cleanly (implicitly if non-nullable version throws)
 fun StructType.stringOrNull(key: String): String? = try {
     string(key)
 } catch (ise: IllegalStateException) {
@@ -75,6 +78,7 @@ fun StructType.boolean(key: String): Boolean = when (val value = this[key]) {
     else -> error("Expected property $key to be an BooleanType but was ${value::class.name}")
 }
 
+// TODO: doesn't handle NullType very cleanly (implicitly if non-nullable version throws)
 fun StructType.booleanOrNull(key: String): Boolean? = try {
     boolean(key)
 } catch (ise: IllegalStateException) {
