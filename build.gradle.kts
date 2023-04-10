@@ -28,6 +28,9 @@ kotlin {
                 // Compose
                 implementation(compose.desktop.currentOs)
                 implementation(compose.material3)
+                // Coroutines
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${extra["coroutines.version"]}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:${extra["coroutines.version"]}")
 
                 // Kotlinx Serialization
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:${extra["serialization.core.version"]}")
