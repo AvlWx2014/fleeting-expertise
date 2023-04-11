@@ -28,16 +28,16 @@ class RpmLocalDataSource {
         }
     }
 
-    suspend fun addBuildRpms(buildRpms: BuildRpms) {
+    suspend fun addBuildRpms(buildId: Int, rpms: Rpms) {
         rpmLock.withLock {
-            buildRpms.forEach {
+            rpms.forEach {
                 indexById[it.id] = it
                 indexByNvra[it.nvra] = it
             }
         }
 
         buildLock.withLock {
-            indexBuildRpms[buildRpms.buildId] = buildRpms.rpms
+            indexBuildRpms[buildId] = rpms.toSet()
         }
     }
 

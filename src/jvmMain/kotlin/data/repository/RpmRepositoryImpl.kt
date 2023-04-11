@@ -2,7 +2,6 @@ package data.repository
 
 import data.source.RpmLocalDataSource
 import data.source.RpmRemoteDataSource
-import model.BuildRpms
 import model.BuildrootListing
 import model.Rpm
 import model.Rpms
@@ -32,9 +31,7 @@ internal class RpmRepositoryImpl(
             localDataSource.getBuildRpms(buildId)
         } else {
             remoteDataSource.getRpmsForBuild(buildId).also {
-                localDataSource.addBuildRpms(
-                    BuildRpms(buildId, it)
-                )
+                localDataSource.addBuildRpms(buildId, it)
             }
     }
     override suspend fun getRpmsInBuildroot(buildrootId: Int): Rpms = if (localDataSource.containsBuildroot(buildrootId)) {
