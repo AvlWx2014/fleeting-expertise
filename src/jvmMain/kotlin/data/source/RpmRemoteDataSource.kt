@@ -1,6 +1,7 @@
 package data.source
 
 import data.api.KojiApi
+import model.BuildrootListing
 import model.Rpm
 import model.Rpms
 
@@ -13,5 +14,5 @@ class RpmRemoteDataSource(private val api: KojiApi = KojiApi()) {
 
     suspend fun getRpmsForBuild(buildId: Int): Rpms = api.getBuildRpms(buildId)
 
-    suspend fun getRpmsInBuildroot(buildrootId: Int): Rpms = api.getBuildrootRpms(buildrootId)
+    suspend fun getRpmsInBuildroot(buildrootId: Int): BuildrootListing = api.getBuildrootRpms(buildrootId)
 }

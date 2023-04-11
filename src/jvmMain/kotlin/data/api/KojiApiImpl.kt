@@ -3,6 +3,7 @@ package data.api
 import data.net.*
 import data.net.xmlrpc.*
 import model.Build
+import model.BuildrootListing
 import model.Rpm
 import retrofit2.Call
 import retrofit2.await
@@ -33,8 +34,8 @@ internal class KojiApiImpl(private val service: KojiService = KojiService()) : K
         location: String
     ): Rpm =  awaitSuccess(::Rpm) { service.getRpm(name, version, release, arch, location) }
 
-    override suspend fun getBuildrootRpms(buildrootId: Int): Collection<Rpm> = awaitSuccess(
-        onSuccess = { Rpms(it, idSelector = "rpm_id") }
+    override suspend fun getBuildrootRpms(buildrootId: Int): BuildrootListing = awaitSuccess(
+        onSuccess = { BuildrootListing(buildrootId, it) }
     ) {
         service.getBuildrootListing(buildrootId)
     }
