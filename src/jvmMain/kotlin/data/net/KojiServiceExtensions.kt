@@ -34,10 +34,10 @@ fun KojiService.getBuildrootListing(buildrootId: Int): Call<MethodResponse> = po
 )
 
 fun KojiService.getRpm(id: Int, strict: Boolean = false, multi: Boolean = false): Call<MethodResponse> =
-    post(methodCall("getRpm", id, strict, multi))
+    post(methodCall("getRPM", id, strict, multi))
 
 fun KojiService.getRpm(nvra: String, strict: Boolean = false, multi: Boolean = false): Call<MethodResponse> =
-    post(methodCall("getRpm", nvra, strict, multi))
+    post(methodCall("getRPM", nvra, strict, multi))
 
 fun KojiService.getRpm(
     name: String,
