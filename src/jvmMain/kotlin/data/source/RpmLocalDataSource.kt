@@ -41,16 +41,9 @@ class RpmLocalDataSource {
         }
     }
 
-    suspend fun addBuildrootListing(buildrootListing: BuildrootListing) {
-        rpmLock.withLock {
-            buildrootListing.forEach {
-                indexById[it.id] = it
-                indexByNvra[it.nvra] = it
-            }
-        }
-
+    suspend fun addBuildrootListing(buildrootId: Int, rpms: Rpms) {
         buildrootLock.withLock {
-            indexBuildrootRpms[buildrootListing.buildrootId] = buildrootListing.rpms
+            indexBuildrootRpms[buildrootId] = rpms.toSet()
         }
     }
 
