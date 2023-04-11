@@ -2,7 +2,6 @@ package data.repository
 
 import data.source.RpmLocalDataSource
 import data.source.RpmRemoteDataSource
-import model.BuildrootListing
 import model.Rpm
 import model.Rpms
 
@@ -34,13 +33,11 @@ internal class RpmRepositoryImpl(
                 localDataSource.addBuildRpms(buildId, it)
             }
     }
+
     override suspend fun getRpmsInBuildroot(buildrootId: Int): Rpms = if (localDataSource.containsBuildroot(buildrootId)) {
         localDataSource.getBuildrootRpms(buildrootId)
     } else {
-        remoteDataSource.getRpmsInBuildroot(buildrootId).also {
-            localDataSource.addBuildrootListing(
-                BuildrootListing(buildrootId, it)
-            )
-        }
+        val buildrootListing = remoteDataSource.getRpmsInBuildroot(buildrootId)
+        buildrootListing.map { get(it.id) }.also { localDataSource.addBuildrootListing(buildrootId, it) }
     }
 }
