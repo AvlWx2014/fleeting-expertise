@@ -28,6 +28,8 @@ kotlin {
                 // Compose
                 implementation(compose.desktop.currentOs)
                 implementation(compose.material3)
+                implementation(compose.materialIconsExtended)
+
                 // Coroutines
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${extra["coroutines.version"]}")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:${extra["coroutines.version"]}")
