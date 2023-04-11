@@ -1,9 +1,9 @@
 package data.net.xmlrpc
 
+import data.net.xmlrpc.BuildrootRpm
+import data.net.xmlrpc.Rpm
 import kotlinx.datetime.Instant
-import model.Build
-import model.BuildState
-import model.Rpm
+import model.*
 import model.Rpm.Companion.BUILDROOT_UNKNOWN
 import nl.adaptivity.xmlutil.core.impl.multiplatform.name
 
@@ -57,6 +57,33 @@ internal fun Rpms(success: Success, idSelector: String = "id"): Collection<Rpm> 
         checkStruct(wrapped)
         Rpm(wrapped, idSelector)
     }
+}
+
+internal fun BuildrootRpm(success: Success): BuildrootRpm {
+    val struct = success.underlying
+    checkStruct(struct)
+    return BuildrootRpm(struct)
+}
+
+internal fun BuildrootRpm(struct: StructType): BuildrootRpm = BuildrootRpm (
+    id = struct.int("rpm_id"),
+    name = struct.string("name"),
+    version = struct.string("version"),
+    release = struct.string("release"),
+    arch = struct.string("arch")
+)
+
+internal fun BuildrootListing(buildrootId: Int, success: Success): BuildrootListing {
+    val array = success.underlying
+    checkArray(array)
+    return BuildrootListing(
+        buildrootId = buildrootId,
+        rpms = array.map {
+            val wrapped = it.value
+            checkStruct(wrapped)
+            BuildrootRpm(wrapped)
+        }
+    )
 }
 
 internal fun Fault(failure: Failure): Fault {
