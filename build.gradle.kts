@@ -54,6 +54,8 @@ kotlin {
 
             languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
             languageSettings.optIn("kotlin.contracts.ExperimentalContracts")
+            languageSettings.optIn("androidx.compose.material3.ExperimentalMaterial3Api")
+            languageSettings.optIn("androidx.compose.ui.ExperimentalComposeUiApi")
         }
         val jvmTest by getting {
             dependencies {
